@@ -2273,7 +2273,7 @@ async function render_page(request, route, options2, state) {
     });
   }
 }
-function error2(body) {
+function error(body) {
   return {
     status: 500,
     body,
@@ -2287,27 +2287,27 @@ async function render_route(request, route) {
   const mod = await route.load();
   const handler = mod[request.method.toLowerCase().replace("delete", "del")];
   if (!handler) {
-    return error2("no handler");
+    return error("no handler");
   }
   const match = route.pattern.exec(request.path);
   if (!match) {
-    return error2("could not parse parameters from request path");
+    return error("could not parse parameters from request path");
   }
   const params = route.params(match);
   const response = await handler({ ...request, params });
   const preface = `Invalid response from route ${request.path}`;
   if (!response) {
-    return error2("no response");
+    return error("no response");
   }
   if (typeof response !== "object") {
-    return error2(`${preface}: expected an object, got ${typeof response}`);
+    return error(`${preface}: expected an object, got ${typeof response}`);
   }
   let { status = 200, body, headers = {} } = response;
   headers = lowercase_keys(headers);
   const type = headers["content-type"];
   const is_type_textual = isContentTypeTextual(type);
   if (!is_type_textual && !(body instanceof Uint8Array || is_string(body))) {
-    return error2(`${preface}: body must be an instance of string or Uint8Array if content-type is not a supported textual content-type`);
+    return error(`${preface}: body must be an instance of string or Uint8Array if content-type is not a supported textual content-type`);
   }
   let normalized_body;
   if ((typeof body === "object" || typeof body === "undefined") && !(body instanceof Uint8Array) && (!type || type.startsWith("application/json"))) {
@@ -2732,9 +2732,9 @@ function init(settings = default_settings) {
     amp: false,
     dev: false,
     entry: {
-      file: "/./_app/start-d0d3187c.js",
+      file: "/./_app/start-18985cd4.js",
       css: ["/./_app/assets/start-a8cd1609.css"],
-      js: ["/./_app/start-d0d3187c.js", "/./_app/chunks/vendor-592b037c.js", "/./_app/chunks/singletons-12a22614.js"]
+      js: ["/./_app/start-18985cd4.js", "/./_app/chunks/vendor-592b037c.js", "/./_app/chunks/singletons-12a22614.js"]
     },
     fetched: void 0,
     floc: false,
@@ -2820,7 +2820,7 @@ var module_lookup = {
     return __layout;
   }),
   ".svelte-kit/build/components/error.svelte": () => Promise.resolve().then(function() {
-    return error$1;
+    return error2;
   }),
   "src/routes/index.svelte": () => Promise.resolve().then(function() {
     return index;
@@ -2835,7 +2835,7 @@ var module_lookup = {
     return sell;
   })
 };
-var metadata_lookup = { "src/routes/__layout.svelte": { "entry": "/./_app/pages/__layout.svelte-a44909cc.js", "css": ["/./_app/assets/pages/__layout.svelte-d53691d7.css"], "js": ["/./_app/pages/__layout.svelte-a44909cc.js", "/./_app/chunks/vendor-592b037c.js", "/./_app/chunks/config-c94b3b2f.js"], "styles": [] }, ".svelte-kit/build/components/error.svelte": { "entry": "/./_app/error.svelte-5a17c2a5.js", "css": [], "js": ["/./_app/error.svelte-5a17c2a5.js", "/./_app/chunks/vendor-592b037c.js"], "styles": [] }, "src/routes/index.svelte": { "entry": "/./_app/pages/index.svelte-e1621cd3.js", "css": ["/./_app/assets/pages/index.svelte-463a813d.css", "/./_app/assets/Product-ecac129e.css"], "js": ["/./_app/pages/index.svelte-e1621cd3.js", "/./_app/chunks/vendor-592b037c.js", "/./_app/chunks/Product-79c47321.js", "/./_app/chunks/stitches.config-5cea04f4.js"], "styles": [] }, "src/routes/products/[id].svelte": { "entry": "/./_app/pages/products/[id].svelte-5cd5fc2b.js", "css": ["/./_app/assets/pages/products/[id].svelte-925807dc.css", "/./_app/assets/ErrorMessage-41fefffe.css", "/./_app/assets/Product-ecac129e.css"], "js": ["/./_app/pages/products/[id].svelte-5cd5fc2b.js", "/./_app/chunks/vendor-592b037c.js", "/./_app/chunks/config-c94b3b2f.js", "/./_app/chunks/ErrorMessage-193814a1.js", "/./_app/chunks/stitches.config-5cea04f4.js", "/./_app/chunks/Product-79c47321.js"], "styles": [] }, "src/routes/product/[id].svelte": { "entry": "/./_app/pages/product/[id].svelte-ae6daa24.js", "css": ["/./_app/assets/ErrorMessage-41fefffe.css"], "js": ["/./_app/pages/product/[id].svelte-ae6daa24.js", "/./_app/chunks/vendor-592b037c.js", "/./_app/chunks/ErrorMessage-193814a1.js", "/./_app/chunks/stitches.config-5cea04f4.js"], "styles": [] }, "src/routes/sell.svelte": { "entry": "/./_app/pages/sell.svelte-329ef6cf.js", "css": ["/./_app/assets/ErrorMessage-41fefffe.css"], "js": ["/./_app/pages/sell.svelte-329ef6cf.js", "/./_app/chunks/vendor-592b037c.js", "/./_app/chunks/stitches.config-5cea04f4.js", "/./_app/chunks/ErrorMessage-193814a1.js", "/./_app/chunks/singletons-12a22614.js"], "styles": [] } };
+var metadata_lookup = { "src/routes/__layout.svelte": { "entry": "/./_app/pages/__layout.svelte-a44909cc.js", "css": ["/./_app/assets/pages/__layout.svelte-d53691d7.css"], "js": ["/./_app/pages/__layout.svelte-a44909cc.js", "/./_app/chunks/vendor-592b037c.js", "/./_app/chunks/config-c94b3b2f.js"], "styles": [] }, ".svelte-kit/build/components/error.svelte": { "entry": "/./_app/error.svelte-5a17c2a5.js", "css": [], "js": ["/./_app/error.svelte-5a17c2a5.js", "/./_app/chunks/vendor-592b037c.js"], "styles": [] }, "src/routes/index.svelte": { "entry": "/./_app/pages/index.svelte-e1621cd3.js", "css": ["/./_app/assets/pages/index.svelte-463a813d.css", "/./_app/assets/Product-ecac129e.css"], "js": ["/./_app/pages/index.svelte-e1621cd3.js", "/./_app/chunks/vendor-592b037c.js", "/./_app/chunks/Product-79c47321.js", "/./_app/chunks/stitches.config-5cea04f4.js"], "styles": [] }, "src/routes/products/[id].svelte": { "entry": "/./_app/pages/products/[id].svelte-453ec737.js", "css": ["/./_app/assets/pages/products/[id].svelte-925807dc.css", "/./_app/assets/ErrorMessage-41fefffe.css", "/./_app/assets/Product-ecac129e.css"], "js": ["/./_app/pages/products/[id].svelte-453ec737.js", "/./_app/chunks/vendor-592b037c.js", "/./_app/chunks/config-c94b3b2f.js", "/./_app/chunks/ErrorMessage-ddaa1315.js", "/./_app/chunks/stitches.config-5cea04f4.js", "/./_app/chunks/Product-79c47321.js"], "styles": [] }, "src/routes/product/[id].svelte": { "entry": "/./_app/pages/product/[id].svelte-18c4b778.js", "css": ["/./_app/assets/ErrorMessage-41fefffe.css"], "js": ["/./_app/pages/product/[id].svelte-18c4b778.js", "/./_app/chunks/vendor-592b037c.js", "/./_app/chunks/ErrorMessage-ddaa1315.js", "/./_app/chunks/stitches.config-5cea04f4.js"], "styles": [] }, "src/routes/sell.svelte": { "entry": "/./_app/pages/sell.svelte-a0170185.js", "css": ["/./_app/assets/ErrorMessage-41fefffe.css"], "js": ["/./_app/pages/sell.svelte-a0170185.js", "/./_app/chunks/vendor-592b037c.js", "/./_app/chunks/stitches.config-5cea04f4.js", "/./_app/chunks/ErrorMessage-ddaa1315.js", "/./_app/chunks/singletons-12a22614.js"], "styles": [] } };
 async function load_component(file) {
   return {
     module: await module_lookup[file](),
@@ -6887,7 +6887,7 @@ var Error$1 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 ${error22.frame ? `<pre>${escape2(error22.frame)}</pre>` : ``}
 ${error22.stack ? `<pre>${escape2(error22.stack)}</pre>` : ``}`;
 });
-var error$1 = /* @__PURE__ */ Object.freeze({
+var error2 = /* @__PURE__ */ Object.freeze({
   __proto__: null,
   [Symbol.toStringTag]: "Module",
   "default": Error$1,
@@ -7380,16 +7380,18 @@ var index = /* @__PURE__ */ Object.freeze({
 });
 var css$1 = {
   code: ".error.svelte-1y8ikz8{padding:2rem;background:white;margin:2rem 0;border:1px solid rgba(0, 0, 0, 0.05);border-left:5px solid red}p.svelte-1y8ikz8{margin:0;font-weight:100}strong.svelte-1y8ikz8{margin-right:1rem}",
-  map: '{"version":3,"file":"ErrorMessage.svelte","sources":["ErrorMessage.svelte"],"sourcesContent":["<script lang=\\"ts\\">export let error;\\r\\n<\/script>\\n\\n{#if error.networkError && error.networkError.result && error.networkError.result.errors.length}\\n    {#each error.networkError.result.errors as error}\\n        <div class=\\"error\\">\\n            <p data-test=\\"graphql-error\\">\\n                <strong>Shoot!</strong>\\n                {error.message.replace(\\"GraphQL error: \\", \\"\\")}\\n            </p>\\n        </div>\\n    {/each}\\n{/if}\\n\\n<style>\\n    .error {\\n        padding: 2rem;\\n        background: white;\\n        margin: 2rem 0;\\n        border: 1px solid rgba(0, 0, 0, 0.05);\\n        border-left: 5px solid red;\\n    }\\n    p {\\n        margin: 0;\\n        font-weight: 100;\\n    }\\n    strong {\\n        margin-right: 1rem;\\n    }\\n</style>\\n"],"names":[],"mappings":"AAeI,MAAM,eAAC,CAAC,AACJ,OAAO,CAAE,IAAI,CACb,UAAU,CAAE,KAAK,CACjB,MAAM,CAAE,IAAI,CAAC,CAAC,CACd,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,IAAI,CAAC,CACrC,WAAW,CAAE,GAAG,CAAC,KAAK,CAAC,GAAG,AAC9B,CAAC,AACD,CAAC,eAAC,CAAC,AACC,MAAM,CAAE,CAAC,CACT,WAAW,CAAE,GAAG,AACpB,CAAC,AACD,MAAM,eAAC,CAAC,AACJ,YAAY,CAAE,IAAI,AACtB,CAAC"}'
+  map: '{"version":3,"file":"ErrorMessage.svelte","sources":["ErrorMessage.svelte"],"sourcesContent":["<script lang=\\"ts\\">export let error;\\r\\n<\/script>\\n\\n<!-- {#if error.networkError && error.networkError.result && error.networkError.result.errors.length}\\n    {#each error.networkError.result.errors as error} -->\\n<div class=\\"error\\">\\n    <p data-test=\\"graphql-error\\">\\n        <strong>Shoot!</strong>\\n        {error}\\n    </p>\\n</div>\\n\\n<!-- {/each}\\n{/if} -->\\n<style>\\n    .error {\\n        padding: 2rem;\\n        background: white;\\n        margin: 2rem 0;\\n        border: 1px solid rgba(0, 0, 0, 0.05);\\n        border-left: 5px solid red;\\n    }\\n    p {\\n        margin: 0;\\n        font-weight: 100;\\n    }\\n    strong {\\n        margin-right: 1rem;\\n    }\\n</style>\\n"],"names":[],"mappings":"AAeI,MAAM,eAAC,CAAC,AACJ,OAAO,CAAE,IAAI,CACb,UAAU,CAAE,KAAK,CACjB,MAAM,CAAE,IAAI,CAAC,CAAC,CACd,MAAM,CAAE,GAAG,CAAC,KAAK,CAAC,KAAK,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,CAAC,IAAI,CAAC,CACrC,WAAW,CAAE,GAAG,CAAC,KAAK,CAAC,GAAG,AAC9B,CAAC,AACD,CAAC,eAAC,CAAC,AACC,MAAM,CAAE,CAAC,CACT,WAAW,CAAE,GAAG,AACpB,CAAC,AACD,MAAM,eAAC,CAAC,AACJ,YAAY,CAAE,IAAI,AACtB,CAAC"}'
 };
 var ErrorMessage = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { error: error22 } = $$props;
   if ($$props.error === void 0 && $$bindings.error && error22 !== void 0)
     $$bindings.error(error22);
   $$result.css.add(css$1);
-  return `${error22.networkError && error22.networkError.result && error22.networkError.result.errors.length ? `${each(error22.networkError.result.errors, (error3) => `<div class="${"error svelte-1y8ikz8"}"><p data-test="${"graphql-error"}" class="${"svelte-1y8ikz8"}"><strong class="${"svelte-1y8ikz8"}">Shoot!</strong>
-                ${escape2(error3.message.replace("GraphQL error: ", ""))}</p>
-        </div>`)}` : ``}`;
+  return `
+<div class="${"error svelte-1y8ikz8"}"><p data-test="${"graphql-error"}" class="${"svelte-1y8ikz8"}"><strong class="${"svelte-1y8ikz8"}">Shoot!</strong>
+        ${escape2(error22)}</p></div>
+
+`;
 });
 var paginationStyles = css$4({
   textAlign: "center",
@@ -7548,7 +7550,7 @@ var SingleProduct = create_ssr_component(($$result, $$props, $$bindings, slots) 
   $$unsubscribe_SINGLE_ITEM_QUERY();
   return `${$$result.head += `${$$result.title = `<title>${escape2(`Sick Fits ${!$SINGLE_ITEM_QUERY.fetching ? `| ${$SINGLE_ITEM_QUERY.data.Product.name}` : ""}`)}</title>`, ""}`, ""}
 
-${$SINGLE_ITEM_QUERY.fetching ? `<p>Loading...</p>` : `${$SINGLE_ITEM_QUERY.error ? `${validate_component(ErrorMessage, "DisplayError").$$render($$result, { error }, {}, {})}` : `<div${add_attribute("class", productStyles(), 0)}><img${add_attribute("src", $SINGLE_ITEM_QUERY.data.Product.photo.image.publicUrlTransformed, 0)}${add_attribute("alt", $SINGLE_ITEM_QUERY.data.Product.photo.altText, 0)}>
+${$SINGLE_ITEM_QUERY.fetching ? `<p>Loading...</p>` : `${$SINGLE_ITEM_QUERY.error ? `${validate_component(ErrorMessage, "DisplayError").$$render($$result, { error: $SINGLE_ITEM_QUERY.error }, {}, {})}` : `<div${add_attribute("class", productStyles(), 0)}><img${add_attribute("src", $SINGLE_ITEM_QUERY.data.Product.photo.image.publicUrlTransformed, 0)}${add_attribute("alt", $SINGLE_ITEM_QUERY.data.Product.photo.altText, 0)}>
         <div class="${"details"}"><h2>${escape2($SINGLE_ITEM_QUERY.data.Product.name)}</h2>
             <p>${escape2($SINGLE_ITEM_QUERY.data.Product.description)}</p></div></div>`}`}`;
 });

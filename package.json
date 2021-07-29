@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "svelte-kit dev -p 5005",
         "build": "svelte-kit build",
-        "preview": "svelte-kit preview",
+        "preview": "svelte-kit preview -p 5005",
         "check": "svelte-check --tsconfig ./tsconfig.json",
         "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
         "lint": "prettier --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",

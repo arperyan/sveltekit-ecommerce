@@ -57,7 +57,7 @@
 {#if $SINGLE_ITEM_QUERY.fetching}
     <p>Loading...</p>
 {:else if $SINGLE_ITEM_QUERY.error}
-    <DisplayError {error} />
+    <DisplayError error={$SINGLE_ITEM_QUERY.error} />
 {:else}
     <div class={productStyles()}>
         <img

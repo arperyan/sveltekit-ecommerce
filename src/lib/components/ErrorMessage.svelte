@@ -4,20 +4,20 @@
         message: string;
     }
 
-    export let error: IError;
+    export let error: any;
 </script>
 
-{#if error.networkError && error.networkError.result && error.networkError.result.errors.length}
-    {#each error.networkError.result.errors as error}
-        <div class="error">
-            <p data-test="graphql-error">
-                <strong>Shoot!</strong>
-                {error.message.replace("GraphQL error: ", "")}
-            </p>
-        </div>
-    {/each}
-{/if}
+<!-- {#if error.networkError && error.networkError.result && error.networkError.result.errors.length}
+    {#each error.networkError.result.errors as error} -->
+<div class="error">
+    <p data-test="graphql-error">
+        <strong>Shoot!</strong>
+        {error}
+    </p>
+</div>
 
+<!-- {/each}
+{/if} -->
 <style>
     .error {
         padding: 2rem;
