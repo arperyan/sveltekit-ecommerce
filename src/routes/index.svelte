@@ -1,59 +1,54 @@
-<script context="module" lang="ts">
-	export const prerender = true;
+<script context="module">
+  export async function load({ context }) {
+    let { client } = context;
+
+    const GET_ALL = `
+               query {
+                    allProducts (sortBy: [name_ASC]) {
+                        id
+                        name
+                        description
+                        photo {
+                            id
+                            image {
+                                id
+                                publicUrlTransformed
+                                }
+                            }
+                            price
+                        }
+                    }`;
+    let listProducts = await client.query(GET_ALL).toPromise();
+
+    return { props: { listProducts } };
+  }
 </script>
 
-<script lang="ts">
-	import Counter from '$lib/Counter.svelte';
+<script>
+  import Product from "$lib/components/Product.svelte";
+
+  export let listProducts;
+  $: ({ data, error } = listProducts);
 </script>
 
 <svelte:head>
-	<title>Home</title>
+  <title>Sick Fits</title>
 </svelte:head>
 
-<section>
-	<h1>
-		<div class="welcome">
-			<picture>
-				<source srcset="svelte-welcome.webp" type="image/webp" />
-				<img src="svelte-welcome.png" alt="Welcome" />
-			</picture>
-		</div>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/index.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
+{#if error}
+  <p>Oh no... {error.message}</p>
+{:else}
+  <div class="product-list">
+    {#each data?.allProducts as product}
+      <Product {product} />
+    {/each}
+  </div>
+{/if}
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 1;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
+  .product-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 60px;
+  }
 </style>

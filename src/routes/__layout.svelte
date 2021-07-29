@@ -1,45 +1,68 @@
-<script lang="ts">
-	import Header from '$lib/header/Header.svelte';
-	import '../app.css';
+<script context="module">
+  import {
+    dedupExchange,
+    cacheExchange,
+    fetchExchange,
+    createClient,
+  } from "@urql/core";
+
+  export function load({ fetch }) {
+    const client = createClient({
+      url: prodEndpoint,
+      fetch: fetch,
+      exchanges: [dedupExchange, cacheExchange, fetchExchange],
+    });
+    let fetching = true;
+    return { props: { client, fetching }, context: { client } };
+  }
 </script>
 
-<Header />
+<script>
+  //import { globalStyles } from "$lib/styles/global";
+  import Header from "components/Header.svelte";
+  import "../app.css";
+  import { prodEndpoint } from "../../config";
+  import { afterUpdate, onMount } from "svelte";
+  import { seoData } from "$lib/SEO";
+  import SvelteSeo from "svelte-seo";
+  import { setClient } from "@urql/svelte";
+  import Spinner from "$lib/UI/Spinner.svelte";
+
+  import { multipartFetchExchange } from "@urql/exchange-multipart-fetch";
+
+  //onMount(() => globalStyles());
+
+  // export let product = [];
+  //export let client;
+  export let fetching;
+
+  //$: console.log(client);
+  const client = createClient({
+    url: prodEndpoint,
+    exchanges: [dedupExchange, cacheExchange, multipartFetchExchange],
+  });
+
+  setClient(client);
+
+  afterUpdate(() => {
+    fetching = false;
+  });
+</script>
+
+<SvelteSeo {...seoData({})} />
 
 <main>
-	<slot />
+  <Header />
+  {#if fetching}
+    <Spinner nav={fetching} />
+  {:else}
+    <div class="container">
+      <slot />
+      <!-- /<button class={buttons({ size: "large" })}>Hello Worls</button> -->
+    </div>
+  {/if}
 </main>
 
-<footer>
-	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
-</footer>
-
 <style>
-	main {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		padding: 1rem;
-		width: 100%;
-		max-width: 1024px;
-		margin: 0 auto;
-		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 40px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 40px 0;
-		}
-	}
+  @import "$lib/styles/test.css";
 </style>
