@@ -34,14 +34,6 @@ const config = {
                 ],
                 include: ["extract-files"],
             },
-            resolve: {
-                alias: [
-                    {
-                        find: "components",
-                        replacement: "/src/lib/components",
-                    },
-                ],
-            },
         },
     },
 };

@@ -1,7 +1,7 @@
 <script lang="ts">
   //import useForm from "../lib/useForm";
   import { forms } from "$lib/styles/Form";
-  import DisplayError from "components/ErrorMessage.svelte";
+  import DisplayError from "$lib/components/ErrorMessage.svelte";
   import { CombinedError, mutation, gql } from "@urql/svelte";
 
   import { goto } from "$app/navigation";
