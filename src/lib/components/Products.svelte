@@ -1,9 +1,10 @@
 <script lang="ts">
     import Product from "$lib/components/Product.svelte";
+    import DisplayError from "$lib/components/ErrorMessage.svelte";
 
     export let allProduct;
     $: ({ data, error } = allProduct);
-    $: console.log(data);
+    $: console.log(error);
 </script>
 
 <svelte:head>
@@ -11,7 +12,7 @@
 </svelte:head>
 
 {#if error}
-    <p>Oh no... {error.message}</p>
+    <DisplayError error={error.message} />
 {:else}
     <div class="product-list">
         {#each data?.allProducts as product}
